@@ -23,6 +23,7 @@ public class LotteryProject {
     int[]   myNumbers;      // numbers entered by the user
     int[]   winningNumbers; // randomly drawn winners
 
+    // get the lottery attributes from the user
     do {
       System.out.print("k=");
       size = input.nextInt();
@@ -35,10 +36,11 @@ public class LotteryProject {
       System.out.print("m=");
       bonusMax = input.nextInt();
     } while (bonusMax < 1);
+
     // select numbers
     myNumbers = enterNumbers(size, max);
     do {
-      System.out.print("Bonus number (1-" + bonusMax + ": ");
+      System.out.print("Bonus number (1-" + bonusMax + "): ");
       bonus = input.nextInt();
     } while (bonus < 1 || bonus > bonusMax);
 
@@ -46,15 +48,20 @@ public class LotteryProject {
     winningNumbers = drawNumbers(size, max);
     winningBonus = (int)(Math.random() * bonusMax + 1);
 
+    // display the user's numbers and the winning numbers
     System.out.print("Your numbers:    ");
     for (int i = 0; i < myNumbers.length; i++) {
       System.out.print(myNumbers[i] + " ");
     }
-    System.out.print("\nWinning numbers: ");
+    System.out.println(bonus);
+
+    System.out.print("Winning numbers: ");
     for (int i = 0; i < winningNumbers.length; i++) {
       System.out.print(winningNumbers[i] + " ");
     }
+    System.out.println(winningBonus);
 
+    // check if the user won, and display the result
     if (containSameElements(myNumbers, winningNumbers)
         && bonus == winningBonus) {
       System.out.println("\nCongratulations, you won!");
@@ -62,12 +69,13 @@ public class LotteryProject {
       System.out.println("\nBetter luck next time!");
     }
 
+    // print the odds of winning
     System.out.println("You had a " + jackpotChance(size, max, bonusMax)
         + "% chance of winning.");
   }
 
   /**
-   * Calculate the odds of picking a winning lottery ticket.
+   * Odds of winning the lottery.
    * @param k how many numbers will be drawn
    * @param n max value for those numbers
    * @param m max value for a separate, bonus number
@@ -96,7 +104,7 @@ public class LotteryProject {
   }
 
   /**
-   * Select numbers for a virtual lottery drawing.
+   * Get user lottery numbers.
    * @param k how many numbers to select
    * @param n max value for those numbers
    * @return  the array of numbers chosen
@@ -106,8 +114,8 @@ public class LotteryProject {
     int[] numbers = new int[k]; //contains the chosen numbers
     int number;
 
+    System.out.print("Enter " + k + " numbers between 1 and " + n + ": ");
     for (int i = 0; i < k; i++) {
-      System.out.print("Enter a number between 1 and " + n + ": ");
       number = input.nextInt();
       if (linearSearch(number, numbers)) {
         System.out.println("Cannot use the same number twice");
@@ -123,7 +131,7 @@ public class LotteryProject {
   }
 
   /**
-   * Draw random numbers for a virtual lottery
+   * Generate random winning numbers.
    * @param k how many random numbers to draw
    * @param n max value for those numbers
    * @return  the array of random numbers
@@ -139,7 +147,7 @@ public class LotteryProject {
   }
 
   /**
-   * Checks whether two arrays contain the same elements, regardless of order
+   * Checks whether two arrays contain the same elements.
    * @param refArray    the reference array
    * @param searchArray an array to be compared with the reference array
    * @return            false if any element in a is missing in b, otherwise true
@@ -154,7 +162,7 @@ public class LotteryProject {
   }
 
   /**
-   * Search for an integer within an array
+   * Search for an integer within an array.
    * @param key the search term
    * @param arr the array to be searched
    * @return    true if the key is found, otherwise false
