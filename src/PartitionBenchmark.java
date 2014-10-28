@@ -55,29 +55,34 @@ public class PartitionBenchmark {
 
   }
 
-  public static double[] partition(double[] a) {
-    double pivotValue = a[0]; // pivot element
+  /**
+   * Partition an array using a slow, resource-intensive method
+   * @param arr the array to be partitioned
+   * @return    the partitioned array
+   */
+  public static double[] partition(double[] arr) {
+    double pivotValue = arr[0]; // pivot element
     int j = 0;  // keeps track of the elements in the lesser array
     int k = 0;  // keeps track of the elements in the greater array
-    double[] lesser = new double[a.length];   // values smaller than the pivot
-    double[] greater = new double[a.length];  // values greater than the pivot
-    double[] result = new double[a.length];   // the partitioned array
+    double[] lesser = new double[arr.length];   // values smaller than the pivot
+    double[] greater = new double[arr.length];  // values greater than the pivot
+    double[] result = new double[arr.length];   // the partitioned array
 
-    for (int i = 1; i < a.length; i++) {
+    for (int i = 1; i < arr.length; i++) {
       // store elements smaller than the pivot value in the lesser array
-      if (a[i] < pivotValue) {
-        lesser[j] = a[i];
+      if (arr[i] < pivotValue) {
+        lesser[j] = arr[i];
         j++;
         // store elements greater than or equal to the pivot value in the
         // greater array
       } else {
-        greater[k] = a[i];
+        greater[k] = arr[i];
         k++;
       }
     }
     // Combine the two arrays with the pivot value in between to get the final,
     // partitioned array
-    for (int i = 0; i < a.length; i++) {
+    for (int i = 0; i < arr.length; i++) {
       if (i < j) {
         result[i] = lesser[i];
       } else if (i == j) {
@@ -89,6 +94,11 @@ public class PartitionBenchmark {
     return result;
   }
 
+  /**
+   * Partition an array without creating new arrays. This code was not written by me!
+   * @param a the array to be partitioned
+   * @return  the partitioned array
+   */
   public static double[] partitionInPlace(double[] a) {
     double pivotValue = a[0];
     int j = 0;  // j keeps track of which elements have already been placed

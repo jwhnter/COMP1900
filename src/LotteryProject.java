@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  * @author Joshua Hunter
- * @since  10-27-2014
+ * @since  10-23-2014
  */
 public class LotteryProject {
   public static void main(String[] args) {
