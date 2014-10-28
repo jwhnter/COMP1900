@@ -1,4 +1,4 @@
-/**
+/*
  * LotteryProject
  * Hold a virtual lottery drawing, proving how futile the lottery is in the process!
  * Joshua Hunter
@@ -8,16 +8,20 @@
 
 import java.util.Scanner;
 
+/**
+ * @author Joshua Hunter
+ * @since  10-27-2014
+ */
 public class LotteryProject {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
-    int size;             // k - how many distinct numbers
-    int max;              // n - the range for the lottery numbers
-    int bonusMax;         // m - the range for the bonus number
-    int bonus;            // bonus number chosen by user
-    int[] myNumbers;      // numbers entered by the user
-    int bonusWinner;      // randomly drawn bonus number
-    int[] winningNumbers; // randomly drawn winners
+    int     size;           // k - how many distinct numbers
+    int     max;            // n - the range for the lottery numbers
+    int     bonusMax;       // m - the range for the bonus number
+    int     bonus;          // bonus number chosen by user
+    int     winningBonus;   // randomly drawn bonus number
+    int[]   myNumbers;      // numbers entered by the user
+    int[]   winningNumbers; // randomly drawn winners
 
     do {
       System.out.print("k=");
@@ -40,7 +44,7 @@ public class LotteryProject {
 
     // draw the random numbers
     winningNumbers = drawNumbers(size, max);
-    bonusWinner = (int)(Math.random() * bonusMax + 1);
+    winningBonus = (int)(Math.random() * bonusMax + 1);
 
     System.out.print("Your numbers:    ");
     for (int i = 0; i < myNumbers.length; i++) {
@@ -52,7 +56,7 @@ public class LotteryProject {
     }
 
     if (containSameElements(myNumbers, winningNumbers)
-        && bonus == bonusWinner) {
+        && bonus == winningBonus) {
       System.out.println("\nCongratulations, you won!");
     } else {
       System.out.println("\nBetter luck next time!");
@@ -136,13 +140,13 @@ public class LotteryProject {
 
   /**
    * Checks whether two arrays contain the same elements, regardless of order
-   * @param a an array to be compared
-   * @param b a second array to be compared
-   * @return  false if any element in a is missing in b, otherwise true
+   * @param refArray    the reference array
+   * @param searchArray an array to be compared with the reference array
+   * @return            false if any element in a is missing in b, otherwise true
    */
-  public static boolean containSameElements(int[] a, int[] b) {
-    for (int i = 0; i < a.length; i++) {
-      if (!linearSearch(a[i], b)) {
+  public static boolean containSameElements(int[] refArray, int[] searchArray) {
+    for (int i = 0; i < refArray.length; i++) {
+      if (!linearSearch(refArray[i], searchArray)) {
         return false;
       }
     }
