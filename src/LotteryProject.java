@@ -13,8 +13,10 @@ public class LotteryProject {
     Scanner input = new Scanner(System.in);
     int size;             // k - how many distinct numbers
     int max;              // n - the range for the lottery numbers
-    int bonus;            // m - the range for the bonus number
+    int bonusMax;         // m - the range for the bonus number
+    int bonus;            // bonus number chosen by user
     int[] myNumbers;      // numbers entered by the user
+    int bonusWinner;      // randomly drawn bonus number
     int[] winningNumbers; // randomly drawn winners
 
     do {
@@ -27,11 +29,18 @@ public class LotteryProject {
     } while (max < 1);
     do {
       System.out.print("m=");
-      bonus = input.nextInt();
-    } while (bonus < 1);
-
+      bonusMax = input.nextInt();
+    } while (bonusMax < 1);
+    // select numbers
     myNumbers = enterNumbers(size, max);
+    do {
+      System.out.print("Bonus number (1-" + bonusMax + ": ");
+      bonus = input.nextInt();
+    } while (bonus < 1 || bonus > bonusMax);
+
+    // draw the random numbers
     winningNumbers = drawNumbers(size, max);
+    bonusWinner = (int)(Math.random() * bonusMax + 1);
 
     System.out.print("Your numbers:    ");
     for (int i = 0; i < myNumbers.length; i++) {
@@ -42,16 +51,25 @@ public class LotteryProject {
       System.out.print(winningNumbers[i] + " ");
     }
 
-    if (containSameElements(myNumbers, winningNumbers)) {
+    if (containSameElements(myNumbers, winningNumbers)
+        && bonus == bonusWinner) {
       System.out.println("\nCongratulations, you won!");
     } else {
       System.out.println("\nBetter luck next time!");
     }
 
-    System.out.println("You had a " + jackpotChance(size, max, bonus)
+    System.out.println("You had a " + jackpotChance(size, max, bonusMax)
         + "% chance of winning.");
   }
-  public static double jackpotChance(int size, int max, int bonus) {
+
+  /**
+   * Calculate the odds of picking a winning lottery ticket.
+   * @param k how many numbers will be drawn
+   * @param n max value for those numbers
+   * @param m max value for a separate, bonus number
+   * @return  odds of winning as a percentage.
+   */
+  public static double jackpotChance(int k, int n, int m) {
   /*
    * The number of possible tickets for a given jackpot is
    *
@@ -62,30 +80,36 @@ public class LotteryProject {
     double numerator = 1;   // the numerator of the fraction above
     double denominator = 1; // the denominator of the fraction above
 
-    for (int i = max; i >= max - size + 1; i--) {
+    for (int i = n; i >= n - k + 1; i--) {
       numerator = numerator * i;
     }
-    for (int i = size; i > 0; i--) {
+    for (int i = k; i > 0; i--) {
       denominator = denominator * i;
     }
     // return the inverse of the number of tickets to get the probability of
     // selecting a winning ticket
-    return 1 / ((numerator / denominator) * bonus);
+    return 1 / ((numerator / denominator) * m);
   }
 
-  public static int[] enterNumbers(int size, int max) {
+  /**
+   * Select numbers for a virtual lottery drawing.
+   * @param k how many numbers to select
+   * @param n max value for those numbers
+   * @return  the array of numbers chosen
+   */
+  public static int[] enterNumbers(int k, int n) {
     Scanner input = new Scanner(System.in);
-    int[] numbers = new int[size]; //contains the chosen numbers
+    int[] numbers = new int[k]; //contains the chosen numbers
     int number;
 
-    for (int i = 0; i < size; i++) {
-      System.out.print("Enter a number between 1 and " + max + ": ");
+    for (int i = 0; i < k; i++) {
+      System.out.print("Enter a number between 1 and " + n + ": ");
       number = input.nextInt();
       if (linearSearch(number, numbers)) {
         System.out.println("Cannot use the same number twice");
         i--;
-      }else if (number < 1 || number > max) {
-        System.out.println("Number must be between 1 and " + max);
+      }else if (number < 1 || number > n) {
+        System.out.println("Number must be between 1 and " + n);
         i--;
       } else {
         numbers[i] = number;
@@ -94,15 +118,28 @@ public class LotteryProject {
     return numbers;
   }
 
+  /**
+   * Draw random numbers for a virtual lottery
+   * @param k how many random numbers to draw
+   * @param n max value for those numbers
+   * @return  the array of random numbers
+   */
   public static int[] drawNumbers (int k, int n){
     int[] numbers = new int[k];
 
+    // assign a random number from 1 to n for all elements in the array
     for (int i = 0; i < k; i++) {
       numbers[i] = (int)(Math.random() * n + 1);
     }
     return numbers;
   }
 
+  /**
+   * Checks whether two arrays contain the same elements, regardless of order
+   * @param a an array to be compared
+   * @param b a second array to be compared
+   * @return  false if any element in a is missing in b, otherwise true
+   */
   public static boolean containSameElements(int[] a, int[] b) {
     for (int i = 0; i < a.length; i++) {
       if (!linearSearch(a[i], b)) {
@@ -112,6 +149,12 @@ public class LotteryProject {
     return true;
   }
 
+  /**
+   * Search for an integer within an array
+   * @param key the search term
+   * @param arr the array to be searched
+   * @return    true if the key is found, otherwise false
+   */
   public static boolean linearSearch(int key, int[] arr) {
     for (int i = 0; i < arr.length; i++) {
       if (arr[i] == key) {
