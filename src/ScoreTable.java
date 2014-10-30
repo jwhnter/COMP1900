@@ -8,11 +8,13 @@ public class ScoreTable {
     Scanner input = new Scanner(System.in);
     int function;
     int[][] scores = {
-        {20,27,16,23,20,27,18},
-        { 8,18,14,17, 9,12, 0},
-        {38,19,25,22,19,25,31},
-        {17, 8,11,21,15, 0, 9},
-        { 2, 1, 3, 0,10, 2, 4}
+        // game
+        //0, 1, 2, 3, 4, 5, 6
+        {20,27,16,23,20,27,18}, // player 0
+        { 8,18,14,17, 9,12, 0}, // player 1
+        {38,19,25,22,19,25,31}, // player 2
+        {17, 8,11,21,15, 0, 9}, // player 3
+        { 2, 1, 3, 0,10, 2, 4}  // player 4
     };
     // loop until user chooses to exit
     do {
@@ -21,10 +23,8 @@ public class ScoreTable {
         System.out.print("Make a selection (0 for help): ");
         function = input.nextInt();
       } while (function < 0 || function > 5);
-
       // get the desired statistic
       select(scores, function);
-
     } while (function != 5);
   }
 
@@ -84,7 +84,6 @@ public class ScoreTable {
     for (int i = 0; i < scores[p].length; i++) {
       points += scores[p][i];
     }
-
     return (points / scores[p].length);
   }
 
@@ -94,7 +93,6 @@ public class ScoreTable {
     for (int i = 0; i < scores.length; i++) {
       score += scores[i][g];
     }
-
     return score;
   }
 
@@ -106,7 +104,6 @@ public class ScoreTable {
         points += scores[i][j];
       }
     }
-
     return (points / scores[0].length);
   }
 
@@ -120,8 +117,6 @@ public class ScoreTable {
         player = i;
       }
     }
-
     return player;
-
   }
 }
