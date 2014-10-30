@@ -45,6 +45,7 @@ public class ScoreTable {
         System.out.print("Select a player (0-" + (scores.length - 1) + "): ");
         p = input.nextInt();
       } while (p < 0 || p > scores.length - 1);
+
       System.out.print("Average PPG for player " + p + " is ");
       System.out.println(averagePPG(scores, p));
     } else if (f == 2) {
@@ -55,6 +56,7 @@ public class ScoreTable {
         System.out.print("Select a game (0-" + (scores[0].length - 1) + "): ");
         g = input.nextInt();
       } while (g < 0 || g > scores[0].length - 1);
+
       System.out.println("In game " + g + ", the team scored "
           + singleGameScore(scores, g) + " points");
     } else if (f == 3) {
