@@ -1,5 +1,7 @@
 /**
- * Created by jahsh_000 on 10/30/2014.
+ * ScoreTable
+ * Joshua Hunter
+ * Section 103
  */
 import java.util.Scanner;
 
@@ -28,6 +30,7 @@ public class ScoreTable {
     } while (function != 5);
   }
 
+  /** Handles user input. */
   public static void select(int[][] scores, int f) {
     Scanner input = new Scanner(System.in);
     if (f == 0) {
@@ -80,6 +83,7 @@ public class ScoreTable {
     }
   }
 
+  /** Average points per game. */
   public static double averagePPG(int[][] scores, int p) {
     double points = 0;
 
