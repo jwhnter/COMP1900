@@ -42,41 +42,41 @@ public class ScoreTable {
       System.out.println("(5) Exit");
     } else if (f == 1) {
       // average points per game
-      int p;  // player
+      int player;
 
       do {
         System.out.print("Select a player (0-" + (scores.length - 1) + "): ");
-        p = input.nextInt();
-      } while (p < 0 || p > scores.length - 1);
+        player = input.nextInt();
+      } while (player < 0 || player > scores.length - 1);
 
-      System.out.print("Average PPG for player " + p + " is ");
-      System.out.println(averagePPG(scores, p));
+      System.out.print("Average PPG for player " + player + " is ");
+      System.out.println(averagePPG(scores, player));
     } else if (f == 2) {
       // single game score
-      int g;  // game
+      int game;
 
       do {
         System.out.print("Select a game (0-" + (scores[0].length - 1) + "): ");
-        g = input.nextInt();
-      } while (g < 0 || g > scores[0].length - 1);
+        game = input.nextInt();
+      } while (game < 0 || game > scores[0].length - 1);
 
-      System.out.println("In game " + g + ", the team scored "
-          + singleGameScore(scores, g) + " points");
+      System.out.println("In game " + game + ", the team scored "
+          + singleGameScore(scores, game) + " points");
     } else if (f == 3) {
       // average game score
       System.out.println("The average points per game is "
           + averageGameScore(scores));
     } else if (f == 4) {
       // single game, top scoring player
-      int g; // game
+      int game;
 
       do {
         System.out.print("Select a game (0-" + (scores[0].length - 1) + "): ");
-        g = input.nextInt();
-      } while (g < 0 || g > scores[0].length - 1);
+        game = input.nextInt();
+      } while (game < 0 || game > scores[0].length - 1);
 
-      System.out.println("The top scorer in game " + g + " was player "
-          + singleGameTopScoringPlayer(scores, g));
+      System.out.println("The top scorer in game " + game + " was player "
+          + singleGameTopScoringPlayer(scores, game));
     } else {
       // exit
       System.out.println("Bye!");
@@ -84,20 +84,20 @@ public class ScoreTable {
   }
 
   /** Average points per game. */
-  public static double averagePPG(int[][] scores, int p) {
+  public static double averagePPG(int[][] scores, int player) {
     double points = 0;
 
-    for (int i = 0; i < scores[p].length; i++) {
-      points += scores[p][i];
+    for (int i = 0; i < scores[player].length; i++) {
+      points += scores[player][i];
     }
-    return (points / scores[p].length);
+    return (points / scores[player].length);
   }
 
-  public static int singleGameScore(int[][] scores, int g) {
+  public static int singleGameScore(int[][] scores, int game) {
     int score = 0;
 
     for (int i = 0; i < scores.length; i++) {
-      score += scores[i][g];
+      score += scores[i][game];
     }
     return score;
   }
@@ -113,13 +113,13 @@ public class ScoreTable {
     return (points / scores[0].length);
   }
 
-  public static int singleGameTopScoringPlayer(int[][] scores, int g) {
+  public static int singleGameTopScoringPlayer(int[][] scores, int game) {
     int highScore = 0;
     int player    = 0;
 
     for (int i = 0; i < scores.length; i++) {
-      if (scores[i][g] > highScore) {
-        highScore = scores[i][g];
+      if (scores[i][game] > highScore) {
+        highScore = scores[i][game];
         player = i;
       }
     }

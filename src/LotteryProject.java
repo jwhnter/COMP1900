@@ -163,13 +163,13 @@ public class LotteryProject {
 
   /**
    * Search for an integer within an array.
-   * @param key the search term
-   * @param arr the array to be searched
-   * @return    true if the key is found, otherwise false
+   * @param key  the search term
+   * @param list the array to be searched
+   * @return     true if the key is found, otherwise false
    */
-  public static boolean linearSearch(int key, int[] arr) {
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] == key) {
+  public static boolean linearSearch(int key, int[] list) {
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == key) {
         return true;
       }
     }

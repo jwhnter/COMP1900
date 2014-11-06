@@ -33,7 +33,6 @@ public class Sudoku {
   }
 
   public static boolean checkRows(int[][] solution) {
-
     for (int i = 0; i < solution.length; i++) {
       // get a row from the solution
       int[] row = new int[solution[i].length];
@@ -58,8 +57,8 @@ public class Sudoku {
         col[j] = solution[j][i];
       }
       // check whether this column uses each number once
-      for (int key = 1; key <= 9; key++) {
-        if (linearSearch(col, key) != 1) {
+      for (int k = 1; k <= 9; k++) {
+        if (linearSearch(col, k) != 1) {
           return false;
         }
       }
@@ -69,19 +68,19 @@ public class Sudoku {
 
   public static boolean checkCells(int[][] solution) {
     // start at each new cell
-    for (int row = 0; row <= 6; row = row + 3) {
-      for (int col = 0; col <= 6; col = col + 3) {
+    for (int i = 0; i <= 6; i = i + 3) {
+      for (int j = 0; j <= 6; j = j + 3) {
+        // create a list from inside each cell
         int index = 0;
         int[] cell = new int[solution.length];
-        // create a list from inside each cell
-        for (int cellRow = row; cellRow < row + 3; cellRow++) {
-          for (int cellCol = col; cellCol < col + 3; cellCol++) {
+        for (int cellRow = i; cellRow < i + 3; cellRow++) {
+          for (int cellCol = j; cellCol < j + 3; cellCol++) {
             cell[index] = solution[cellRow][cellCol];
             index++;
           }
         }
-        for (int key = 1; key <= 9; key++) {
-          if (linearSearch(cell, key) != 1) {
+        for (int k = 1; k <= 9; k++) {
+          if (linearSearch(cell, k) != 1) {
             return false;
           }
         }
