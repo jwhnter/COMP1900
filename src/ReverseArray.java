@@ -6,7 +6,7 @@
 public class ReverseArray {
   public static void main(String[] args) {
     char[] array = {
-        'Y', 'a', 'y', ' ', 'r', 'e', 'c', 'u', 'r', 's', 'i', 'o', 'n'
+        'Y','a','y',' ','r','e','c','u','r','s','i','o','n','!'
     };
 
     for (int i = 0; i < array.length; i++) {

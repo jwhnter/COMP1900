@@ -15,9 +15,11 @@ public class Factorial {
   }
 
   public static int factorialize(int n) {
-    if (n > 1) {
+    if (n == 0) {
+      return 1; // 0! == 1 by definition
+    } else if (n > 1) {
       return (n * factorialize(n - 1));
-    } else {
+    } else {  // if n == 1
       return n;
     }
   }
