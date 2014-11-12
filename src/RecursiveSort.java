@@ -6,37 +6,46 @@
  */
 public class RecursiveSort {
   public static void main(String[] args) {
-    int[] array = new int[1000];
+    int[] array = new int[10];
 
-    randomize(array); // fill the array with random data
-    maxSort(array, 0, array.length - 1);
-  }
-
-  public static void randomize(int[] array) {
     for (int i = 0; i < array.length; i++) {
       array[i] = (int)(Math.random() * 1000);
-    }
+    } // fill the array with random data
+
+    System.out.print("Unsorted: ");
+    print(array);
+
+    maxSort(array, array.length - 1);
+
+    System.out.print("Sorted: ");
+    print(array);
   }
 
-  public static void maxSort(int[] array, int first, int last) {
-    if (first < last) {
-      int max = array[first];
-      int maxIndex = first;
+  public static void print(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+      System.out.print(array[i] + " ");
+    }
+
+    System.out.print("\n");
+  }
+
+  public static void maxSort(int[] array, int last) {
+    if (last > 0) {
+      int max = 0;
 
       // find the largest element
-      for (int i = first; i < last; i++) {
-        if (array[i] > max) {
-          max = array[i];
-          maxIndex = i;
+      for (int i = 0; i <= last; i++) {
+        if (array[i] > array[max]) {
+          max = i;
         }
       }
 
       // swap the largest element with the last unsorted element
-      int tmp = array[maxIndex];
-      array[maxIndex] = array[last];
+      int tmp = array[max];
+      array[max] = array[last];
       array[last] = tmp;
 
-      maxSort(array, first + 1, last - 1);
+      maxSort(array, last - 1);
     }
   }
 }
