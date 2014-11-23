@@ -100,12 +100,9 @@ public class Lottery {
 
   /**
    * Calculate odds of winning the lottery.
-   * @param k how many numbers will be drawn
-   * @param n max value for those numbers
-   * @param m max value for a separate, bonus number
-   * @return  odds of winning as a percentage.
+   * @return  odds of selecting the winning ticket
    */
-  private static double calcOdds(int k, int n, int m) {
+  private double calcOdds() {
     /*
      * The number of possible tickets for a given jackpot is
      *
@@ -116,17 +113,17 @@ public class Lottery {
     double numerator = 1;   // the numerator of the fraction above
     double denominator = 1; // the denominator of the fraction above
 
-    for (int i = n; i >= n - k + 1; i--) {
+    for (int i = max; i >= max - size + 1; i--) {
       numerator = numerator * i;
     }
-    for (int i = k; i > 0; i--) {
+    for (int i = size; i > 0; i--) {
       denominator = denominator * i;
     }
     /*
      * return the inverse of number of tickets to get the probability of
      * selecting the winner
      */
-    return 1 / ((numerator / denominator) * m);
+    return 1 / ((numerator / denominator) * bonusMax);
   }
 
   /**
