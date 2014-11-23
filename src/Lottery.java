@@ -4,6 +4,7 @@
  * Joshua Hunter
  */
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Lottery {
@@ -23,18 +24,28 @@ public class Lottery {
     Scanner input = new Scanner(System.in);
 
     System.out.println("Enter the lottery variables");
+    do {
+      System.out.print("Draw how many numbers? k=");
+      size = input.nextInt();
+      if (size < 1) {
+        System.out.println("You must draw at least 1 number");
+      }
+    } while (size < 1);
 
     do {
-      System.out.print("k=");
-      size = input.nextInt();
-    } while (size < 1);
-    do {
-      System.out.print("n=");
+      System.out.print("Max value for those numbers? n=");
       max = input.nextInt();
-    } while (max < 1);
+      if (max < size) { // can't draw without repeating if max < size
+        System.out.println("Not enough numbers to draw from");
+      }
+    } while (max < size);
+
     do {
-      System.out.print("m=");
+      System.out.print("Max value for the bonus number? m=");
       bonusMax = input.nextInt();
+      if (bonusMax < 1) {
+        System.out.println("Bonus number cannot be less than 1");
+      }
     } while (bonusMax < 1);
   }
 
@@ -44,7 +55,7 @@ public class Lottery {
    * @param playerBonus   bonus number chosen by the player
    */
   public void play(int[] playerNumbers, int playerBonus) {
-    drawNumbers(size, max);
+    drawNumbers();
 
     System.out.print("Your numbers:    ");
     for (int i = 0; i < playerNumbers.length; i++) {
@@ -60,34 +71,31 @@ public class Lottery {
 
     if (matchNumbers(playerNumbers, numbers)
         && bonus == playerBonus) {
-      System.out.println("\nCongratulations, you won!");
+      System.out.println("\nCongratulations, you won the jackpot!");
     } else {
-      System.out.println("\nBetter luck next time!");
+      System.out.println("\nYou didn't win the jackpot. :(");
     }
 
-    System.out.println("You had a " + calcOdds(size, max, bonusMax)
+    System.out.println("You had a " + (calcOdds(size, max, bonusMax) * 100)
         + "% chance of winning.");
   }
 
   /**
    * Generate random winning numbers.
-   * @param k how many random numbers to drawNumbers
-   * @param n max value for those numbers
-   * @return  the array of random numbers
    */
-  public void drawNumbers(int k, int n) {
+  private void drawNumbers() {
+    Random rand = new Random();
     numbers = new int[size];
 
-    for (int i = 0; i < k; i++) {
-      int tmp = (int)(Math.random() * n + 1);
+    for (int i = 0; i < numbers.length; i++) {
+      int tmp = rand.nextInt(max) + 1;
       if (find(tmp, numbers)) {  // if the number has already been drawn
         i--;                     // try again
       } else {
         numbers[i] = tmp;
       }
     }
-
-    bonus = (int)(Math.random() * n + 1);
+    bonus = rand.nextInt(bonusMax) + 1;
   }
 
   /**
@@ -97,7 +105,7 @@ public class Lottery {
    * @param m max value for a separate, bonus number
    * @return  odds of winning as a percentage.
    */
-  public static double calcOdds(int k, int n, int m) {
+  private static double calcOdds(int k, int n, int m) {
     /*
      * The number of possible tickets for a given jackpot is
      *
@@ -127,7 +135,7 @@ public class Lottery {
    * @param searchArray an array to be compared with the reference array
    * @return            true if both contain the same elements, otherwise false
    */
-  public static boolean matchNumbers(int[] refArray, int[] searchArray) {
+  private static boolean matchNumbers(int[] refArray, int[] searchArray) {
     for (int i = 0; i < refArray.length; i++) {
       if (!find(refArray[i], searchArray)) {
         return false;

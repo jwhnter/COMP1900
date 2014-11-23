@@ -11,13 +11,12 @@ public class LotteryClient {
     Scanner input = new Scanner(System.in);
     char    again;       // play again?
     int     userBonus;   // bonus number chosen by user
-    int[]   userNumbers; // list of numbers chosen by the user
+    int[]   userNumbers; // numbers chosen by the user
 
     do {
       Lottery powerball = new Lottery();
       powerball.setVars();
 
-      // select numbers
       userNumbers = getNumbers(powerball.size, powerball.max);
       do {
         System.out.print("Bonus number (1-" + powerball.bonusMax + "): ");
@@ -27,12 +26,12 @@ public class LotteryClient {
       powerball.play(userNumbers, userBonus);
 
       System.out.print("Play again? (y/n): ");
-      again = input.next().charAt(0);
+      again = input.next().charAt(0); // reads only the first character entered
     } while(again == 'y' || again == 'Y');
   }
 
   /**
-   * Get user lottery numbers.
+   * Get lottery numbers from the user.
    * @param k how many numbers to select
    * @param n max value for those numbers
    * @return  the array of numbers chosen
@@ -43,7 +42,11 @@ public class LotteryClient {
 
     System.out.print("Enter " + k + " numbers between 1 and " + n + ": ");
     for (int i = 0; i < k; i++) {
-      int tmp = input.nextInt(); // hold on to the number so we can test it
+      /*
+       * We have to keep the new number in a temporary variable while we test
+       * it, otherwise Lottery.find always returns true
+       */
+      int tmp = input.nextInt();
       if (Lottery.find(tmp, newNumbers)) {
         System.out.println("Cannot use the same number twice");
         i--;
