@@ -61,7 +61,6 @@ public class LotteryProject {
     }
     System.out.println(winningBonus);
 
-    // check if the user won, and display the result
     if (containSameElements(myNumbers, winningNumbers)
         && bonus == winningBonus) {
       System.out.println("\nCongratulations, you won!");
@@ -69,7 +68,6 @@ public class LotteryProject {
       System.out.println("\nBetter luck next time!");
     }
 
-    // print the odds of winning
     System.out.println("You had a " + jackpotChance(size, max, bonusMax)
         + "% chance of winning.");
   }

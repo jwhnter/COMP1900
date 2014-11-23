@@ -16,12 +16,10 @@ public class Factorial {
   }
 
   public static int factorial(int n) {
-    if (n == 0) {
+    if (n <= 1) {
       return 1; // 0! == 1 by definition
-    } else if (n > 1) {
+    } else {
       return (n * factorial(n - 1));
-    } else {  // if n == 1
-      return n;
     }
   }
 }
