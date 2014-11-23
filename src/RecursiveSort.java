@@ -25,8 +25,7 @@ public class RecursiveSort {
     for (int i = 0; i < array.length; i++) {
       System.out.print(array[i] + " ");
     }
-
-    System.out.print("\n");
+    System.out.println();
   }
 
   public static void maxSort(int[] array, int last) {
@@ -45,6 +44,7 @@ public class RecursiveSort {
       array[max] = array[last];
       array[last] = tmp;
 
+      // recurse through the array
       maxSort(array, last - 1);
     }
   }

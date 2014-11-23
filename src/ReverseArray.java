@@ -13,8 +13,10 @@ public class ReverseArray {
     for (int i = 0; i < array.length; i++) {
       System.out.print(array[i]);
     }
-    System.out.print("\n");
+    System.out.println();
+
     reverse(array, 0, array.length - 1);
+
     for (int i = 0; i < array.length; i++) {
       System.out.print(array[i]);
     }
@@ -27,6 +29,5 @@ public class ReverseArray {
       array[last] = tmp;
       reverse(array, first + 1, last - 1);
     }
-    return;
   }
 }

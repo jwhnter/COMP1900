@@ -44,7 +44,7 @@ public class LotteryProject {
       bonus = input.nextInt();
     } while (bonus < 1 || bonus > bonusMax);
 
-    // draw the random numbers
+    // drawNumbers the random numbers
     winningNumbers = drawNumbers(size, max);
     winningBonus = (int)(Math.random() * bonusMax + 1);
 
@@ -61,7 +61,6 @@ public class LotteryProject {
     }
     System.out.println(winningBonus);
 
-    // check if the user won, and display the result
     if (containSameElements(myNumbers, winningNumbers)
         && bonus == winningBonus) {
       System.out.println("\nCongratulations, you won!");
@@ -69,7 +68,6 @@ public class LotteryProject {
       System.out.println("\nBetter luck next time!");
     }
 
-    // print the odds of winning
     System.out.println("You had a " + jackpotChance(size, max, bonusMax)
         + "% chance of winning.");
   }
@@ -132,7 +130,7 @@ public class LotteryProject {
 
   /**
    * Generate random winning numbers.
-   * @param k how many random numbers to draw
+   * @param k how many random numbers to drawNumbers
    * @param n max value for those numbers
    * @return  the array of random numbers
    */
